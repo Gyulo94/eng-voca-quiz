@@ -8,7 +8,6 @@ export class QuizController {
 
   @Get()
   findQuizByLevel(@Query('level') level: Level) {
-    console.log('컨트롤러 진입');
     const response = this.quizService.findQuizByLevel(level);
     return response;
   }
