@@ -23,16 +23,16 @@ export class QuizService {
       .slice(0, 3)
       .map((word) => word.meaning);
 
-    const shuffleAnsers = [correctWord.meaning, ...wrongAnswers].sort(
+    const shuffleAnswers = [correctWord.meaning, ...wrongAnswers].sort(
       () => 0.5 - Math.random(),
     );
 
     console.log(correctWord.name);
-    console.log(shuffleAnsers);
+    console.log(shuffleAnswers);
     console.log(correctWord.meaning);
     return {
       correctWord: correctWord.name,
-      shuffleAnsers,
+      shuffleAnswers,
       correctAnswer: correctWord.meaning,
     };
   }

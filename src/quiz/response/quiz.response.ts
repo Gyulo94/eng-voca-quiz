@@ -1,5 +1,5 @@
 export class QuizResponse {
   correctWord: string;
-  shuffleAnsers: string[];
+  shuffleAnswers: string[];
   correctAnswer: string;
 }
