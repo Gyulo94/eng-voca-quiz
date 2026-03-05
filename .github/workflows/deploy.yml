@@ -1,4 +1,4 @@
-name: CI/CD 파이프라인 (eng-voca-quiz-server)
+name: CI/CD 파이프라인 (eng-voca-quiz)
 
 on:
   push:
@@ -47,18 +47,13 @@ jobs:
             cd ${{ secrets.REMOTE_PROJECT_PATH }}
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             echo "${{secrets.ENV_FILE}}" > ./.env
-            docker pull ${{ secrets.DOCKER_USERNAME }}/eng-voca-quiz:latest
-
-            docker stop eng-voca-quiz || true
-            docker rm eng-voca-quiz || true 
-
-            docker run -d \
-            -p 9999:8000 \
-            --name eng-voca-quiz \
-            --network nginx-proxy_gyubuntu_net \
-            --env-file ./.env \
-            ${{ secrets.DOCKER_USERNAME }}/eng-voca-quiz:latest 
-            docker image prune -f
+            docker compose down
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/eng-voca-quiz
+            docker pull ${{ secrets.DOCKER_USERNAME }}/eng-voca-quiz
+            docker compose up -d --remove-orphans
+            cd /home/gyubuntu/nginx-proxy
+            docker compose down
+            docker compose up -d
 
       - name: 성공 메세지 출력
         if: success()
