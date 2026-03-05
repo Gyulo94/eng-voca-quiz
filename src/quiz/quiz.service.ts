@@ -27,6 +27,9 @@ export class QuizService {
       () => 0.5 - Math.random(),
     );
 
+    console.log(correctWord.name);
+    console.log(shuffleAnsers);
+    console.log(correctWord.meaning);
     return {
       correctWord: correctWord.name,
       shuffleAnsers,
